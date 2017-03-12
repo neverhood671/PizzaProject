@@ -1,6 +1,7 @@
-package java.orm;
+package pizza.orm;
 
-import java.model.Order;
+import org.springframework.stereotype.Component;
+import pizza.model.Order;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 /**
  * Created by Настя on 11.03.2017.
  */
+@Component
 public class OrderRawMapper  implements RowMapper<Order> {
 
     @Override

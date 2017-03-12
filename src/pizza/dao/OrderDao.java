@@ -1,14 +1,14 @@
-package java.dao;
+package pizza.dao;
 
-import oracle.jdbc.pool.OracleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
+import pizza.model.Order;
+import pizza.orm.OrderRawMapper;
 
-import java.model.Order;
-import java.orm.OrderRawMapper;
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -17,17 +17,9 @@ import java.util.UUID;
  * Created by Настя on 11.03.2017.
  */
 @Repository
-public class OrderDao extends JdbcDaoSupport {
+public class OrderDao extends Dao {
 
-    @Autowired
-    private OracleDataSource dataSource;
-    private OrderRawMapper OrderRowMapper;
-
-
-    public OrderDao(OracleDataSource dataSource, OrderRawMapper OrderRowMapper) {
-        this.dataSource = dataSource;
-        this.OrderRowMapper = OrderRowMapper;
-    }
+    private OrderRawMapper orderRawMapper;
 
     private final String OPEN_STATUS = "OPEN";
     private final String IN_PROGRESS_STATUS = "IN_PROGRESS";
@@ -40,24 +32,29 @@ public class OrderDao extends JdbcDaoSupport {
     private static final String GET_SQL = "SELECT * FROM ORDER WHERE ID = :ID";
     private static final String UPDATE_STATUS_SQL = "UPDATE Order SET STATUS = :STATUS WHERE ID = :ID";
 
+    @Autowired
+    public OrderDao(DataSource dataSource, JdbcTemplate jdbcTemplate, OrderRawMapper orderRawMapper) {
+        super(dataSource, jdbcTemplate);
+        this.orderRawMapper = orderRawMapper;
+    }
 
     public void create(Order order) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", order.getId())
+                .addValue("id", convertUUIDToOracleID(order.getId()))
                 .addValue("order_status", order.getOrder_status());
-        getJdbcTemplate().update(CREATE_SQL, params);
+        getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
     }
 
 
     public List<Order> getList() {
-        return getJdbcTemplate().query(GET_ALL_SQL, OrderRowMapper, new HashMap<String, Object>());
+        return getJdbcTemplate().query(GET_ALL_SQL, orderRawMapper, new HashMap<String, Object>());
     }
 
 
     public Order get(UUID OrderId) {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("id", OrderId);
-        List<Order> locations = getJdbcTemplate().query(GET_SQL, OrderRowMapper, params);
+        List<Order> locations = getJdbcTemplate().query(GET_SQL, orderRawMapper, params);
         return locations.isEmpty() ? null : locations.get(0);
     }
 
@@ -66,7 +63,7 @@ public class OrderDao extends JdbcDaoSupport {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("id", order.getId())
                 .addValue("order_status", order.getOrder_status());
-        getJdbcTemplate().update(UPDATE_STATUS_SQL, params);
+        getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, params);
     }
 
 

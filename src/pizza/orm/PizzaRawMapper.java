@@ -1,9 +1,9 @@
-package java.orm;
+package pizza.orm;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.model.Pizza;
+import pizza.model.Pizza;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;

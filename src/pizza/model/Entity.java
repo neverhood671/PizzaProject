@@ -1,4 +1,4 @@
-package java.model;
+package pizza.model;
 
 import java.io.Serializable;
 import java.util.UUID;
