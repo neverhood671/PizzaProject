@@ -9,6 +9,11 @@ import java.util.List;
 public class OrderWorker {
     private List<Pizza> orderList;
 
+
+    private final String OPEN_STATUS = "OPEN";
+    private final String IN_PROGRESS_STATUS = "IN_PROGRESS";
+    private final String READY_STATUS = "READY";
+
     public OrderWorker(){
 
     }
