@@ -22,7 +22,6 @@ public abstract class Dao extends NamedParameterJdbcDaoSupport {
         initTemplateConfig();
     }
 
-
     public String convertUUIDToOracleID(UUID uuid) {
         return uuid.toString().replace("-", "");
     }

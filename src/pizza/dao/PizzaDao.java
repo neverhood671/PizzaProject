@@ -38,10 +38,10 @@ public class PizzaDao extends Dao {
     private static final String CREATE_SQL =
             "INSERT INTO PIZZA(ID, PIZZA_SIZE, PIZZA_TYPE_ID, PIZZA_STATUS, ORDER_ID, COOK_ID) " +
                     "VALUES (:pizzaId, :pizzaSize, :pizzaTypeId, :pizzaStatus, :orderId, :cookId)";
-    private static final String GET_ALL_SQL = "SELECT * FROM PIZZA";
-    private static final String GET_SQL = "SELECT * FROM PIZZA WHERE ID = :ID";
-    private static final String UPDATE_STATUS_SQL = "UPDATE PIZZA SET PIZZA_STATUS = :PIZZA_STATUS WHERE ID = :ID";
-    private static final String UPDATE_COOK_SQL = "UPDATE PIZZA SET COOK = :COOK WHERE ID = :ID";
+    private static final String GET_ALL_SQL = "SELECT ID, PIZZA_SIZE, PIZZA_TYPE_ID, PIZZA_STATUS, ORDER_ID, COOK_ID FROM PIZZA";
+    private static final String GET_SQL = "SELECT ID, PIZZA_SIZE, PIZZA_TYPE_ID, PIZZA_STATUS, ORDER_ID, COOK_ID FROM PIZZA WHERE ID = :ID";
+    private static final String UPDATE_STATUS_SQL = "UPDATE PIZZA SET PIZZA_STATUS = :pizzaStatus WHERE ID = :pizzaId";
+    private static final String UPDATE_COOK_SQL = "UPDATE PIZZA SET COOK_ID = :cookId WHERE ID = :pizzaId";
 
 
     public void create(String size, String pizza_type_id, String pizza_status, String order_id, String cook_id) {
@@ -57,50 +57,41 @@ public class PizzaDao extends Dao {
 
     public void create(Pizza pizza) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", pizza.getId())
-                .addValue("size", pizza.getSize())
-                .addValue("pizza_type_id", pizza.getPizza_type_id())
-                .addValue("status", pizza.getPizza_status())
-                .addValue("order_id", pizza.getOrder_id())
-                .addValue("cook_id", pizza.getCook_id());
+                .addValue("pizzaId",  convertUUIDToOracleID(pizza.getId()))
+                .addValue("pizzaSize", pizza.getPizza_size())
+                .addValue("pizzaTypeId", convertUUIDToOracleID(pizza.getPizza_type_id()))
+                .addValue("pizzaStatus", pizza.getPizza_status())
+                .addValue("orderId",  convertUUIDToOracleID(pizza.getOrder_id()))
+                .addValue("cookId",  convertUUIDToOracleID(pizza.getCook_id()));
         getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
     }
 
 
     public List<Map<String, Object>> getList() {
-       // return getJdbcTemplate().query(GET_ALL_SQL, pizzaRowMapper, new HashMap<String, Object>());
         return getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, new HashMap<String, Object>());
     }
 
 
     public Pizza get(UUID pizzaId) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", pizzaId);
-        List<Pizza> locations = getJdbcTemplate().query(GET_SQL, pizzaRowMapper, params);
-        return locations.isEmpty() ? null : locations.get(0);
+                .addValue("ID", convertUUIDToOracleID(pizzaId));
+        List<Pizza> pizza = getNamedParameterJdbcTemplate().query(GET_SQL, params, pizzaRowMapper);
+        return pizza.isEmpty() ? null : pizza.get(0);
     }
 
 
-    public void updateStatus(Pizza pizza, String status) {
+    public void updateStatus(UUID pizzaId, String pizzaStatus) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", pizza.getId())
-                .addValue("size", pizza.getSize())
-                .addValue("pizza_type_id", pizza.getPizza_type_id())
-                .addValue("status", status)
-                .addValue("order_id", pizza.getOrder_id())
-                .addValue("cook_id", pizza.getCook_id());
+                .addValue("pizzaId", convertUUIDToOracleID(pizzaId))
+                .addValue("pizzaStatus", pizzaStatus);
         getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, params);
     }
 
 
-    public void updateCook(Pizza pizza, String cook) {
+    public void updateCook(UUID pizzaId, UUID cookId) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", pizza.getId())
-                .addValue("size", pizza.getSize())
-                .addValue("pizza_type_id", pizza.getPizza_type_id())
-                .addValue("status", pizza.getPizza_status())
-                .addValue("order_id", pizza.getOrder_id())
-                .addValue("cook_id", cook);
+                .addValue("pizzaId", convertUUIDToOracleID(pizzaId))
+                .addValue("cookId", convertUUIDToOracleID(cookId));
         getNamedParameterJdbcTemplate().update(UPDATE_COOK_SQL, params);
     }
 

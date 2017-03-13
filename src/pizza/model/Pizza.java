@@ -8,7 +8,7 @@ import java.util.UUID;
  */
 public class Pizza extends Entity {
 
-    private String size;
+    private String pizza_size;
     private UUID pizza_type_id;
     private String pizza_status;
     private UUID order_id;
@@ -19,19 +19,28 @@ public class Pizza extends Entity {
     }
     public Pizza(String size, UUID pizza_type_id, String pizza_status, UUID order_id, UUID cook_id) {
         this.id = UUID.randomUUID();
-        this.size = size;
+        this.pizza_size = size;
         this.pizza_type_id = pizza_type_id;
         this.pizza_status = pizza_status;
         this.order_id = order_id;
         this.cook_id = cook_id;
     }
 
-    public String getSize() {
-        return size;
+    public Pizza(String size, String pizza_type_id, String pizza_status, String order_id, String cook_id) {
+        this.id = UUID.randomUUID();
+        this.pizza_size = size;
+        this.pizza_type_id = UUID.fromString(pizza_type_id);
+        this.pizza_status = pizza_status;
+        this.order_id = UUID.fromString(order_id);
+        this.cook_id = UUID.fromString(cook_id);
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public String getPizza_size() {
+        return pizza_size;
+    }
+
+    public void setPizza_size(String pizza_size) {
+        this.pizza_size = pizza_size;
     }
 
     public UUID getPizza_type_id() {
