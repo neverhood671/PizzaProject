@@ -8,70 +8,70 @@ import java.util.UUID;
  */
 public class Pizza extends Entity {
 
-    private String pizza_size;
-    private UUID pizza_type_id;
-    private String pizza_status;
-    private UUID order_id;
-    private UUID cook_id;
+    private String pizzaSize;
+    private UUID pizzaTypeId;
+    private String pizzaStatus;
+    private UUID orderId;
+    private UUID cookId;
 
     public Pizza() {
 
     }
-    public Pizza(String size, UUID pizza_type_id, String pizza_status, UUID order_id, UUID cook_id) {
+    public Pizza(String size, UUID pizzaTypeId, String pizzaStatus, UUID orderId, UUID cookId) {
         this.id = UUID.randomUUID();
-        this.pizza_size = size;
-        this.pizza_type_id = pizza_type_id;
-        this.pizza_status = pizza_status;
-        this.order_id = order_id;
-        this.cook_id = cook_id;
+        this.pizzaSize = size;
+        this.pizzaTypeId = pizzaTypeId;
+        this.pizzaStatus = pizzaStatus;
+        this.orderId = orderId;
+        this.cookId = cookId;
     }
 
-    public Pizza(String size, String pizza_type_id, String pizza_status, String order_id, String cook_id) {
+    public Pizza(String size, String pizzaTypeId, String pizzaStatus, String orderId, String cookId) {
         this.id = UUID.randomUUID();
-        this.pizza_size = size;
-        this.pizza_type_id = UUID.fromString(pizza_type_id);
-        this.pizza_status = pizza_status;
-        this.order_id = UUID.fromString(order_id);
-        this.cook_id = UUID.fromString(cook_id);
+        this.pizzaSize = size;
+        this.pizzaTypeId = UUID.fromString(pizzaTypeId);
+        this.pizzaStatus = pizzaStatus;
+        this.orderId = UUID.fromString(orderId);
+        this.cookId = UUID.fromString(cookId);
     }
 
-    public String getPizza_size() {
-        return pizza_size;
+    public String getPizzaSize() {
+        return pizzaSize;
     }
 
-    public void setPizza_size(String pizza_size) {
-        this.pizza_size = pizza_size;
+    public void setPizzaSize(String pizzaSize) {
+        this.pizzaSize = pizzaSize;
     }
 
-    public UUID getPizza_type_id() {
-        return pizza_type_id;
+    public UUID getPizzaTypeId() {
+        return pizzaTypeId;
     }
 
-    public void setPizza_type_id(UUID pizza_type_id) {
-        this.pizza_type_id = pizza_type_id;
+    public void setPizzaTypeId(UUID pizzaTypeId) {
+        this.pizzaTypeId = pizzaTypeId;
     }
 
-    public String getPizza_status() {
-        return pizza_status;
+    public String getPizzaStatus() {
+        return pizzaStatus;
     }
 
-    public void setPizza_status(String pizza_status) {
-        this.pizza_status = pizza_status;
+    public void setPizzaStatus(String pizzaStatus) {
+        this.pizzaStatus = pizzaStatus;
     }
 
-    public UUID getOrder_id() {
-        return order_id;
+    public UUID getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(UUID order_id) {
-        this.order_id = order_id;
+    public void setOrderId(UUID orderId) {
+        this.orderId = orderId;
     }
 
-    public UUID getCook_id() {
-        return cook_id;
+    public UUID getCookId() {
+        return cookId;
     }
 
-    public void setCook_id(UUID cook_id) {
-        this.cook_id = cook_id;
+    public void setCookId(UUID cookId) {
+        this.cookId = cookId;
     }
 }

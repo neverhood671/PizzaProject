@@ -41,7 +41,7 @@ public class OrderDao extends Dao {
     public void create(Order order) {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("orderId", convertUUIDToOracleID(order.getId()))
-                .addValue("orderStatus", order.getOrder_status());
+                .addValue("orderStatus", order.getOrderStatus());
         getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
     }
 
@@ -67,7 +67,7 @@ public class OrderDao extends Dao {
     public void updateStatus(Order order, String status) {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("orderId", convertUUIDToOracleID(order.getId()))
-                .addValue("orderStatus", order.getOrder_status());
+                .addValue("orderStatus", order.getOrderStatus());
         getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, params);
     }
 

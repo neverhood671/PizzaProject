@@ -9,16 +9,16 @@ import java.util.UUID;
 public class Cook extends Entity {
 
     private String name;
-    private String cook_status;
+    private String cookStatus;
 
     public Cook() {
 
     }
 
-    public Cook(String name, String cook_status) {
+    public Cook(String name, String cookStatus) {
         this.id = UUID.randomUUID();
         this.name = name;
-        this.cook_status = cook_status;
+        this.cookStatus = cookStatus;
     }
 
     public String getName() {
@@ -29,11 +29,11 @@ public class Cook extends Entity {
         this.name = name;
     }
 
-    public String getCook_status() {
-        return cook_status;
+    public String getCookStatus() {
+        return cookStatus;
     }
 
-    public void setCook_status(String cook_status) {
-        this.cook_status = cook_status;
+    public void setCookStatus(String cookStatus) {
+        this.cookStatus = cookStatus;
     }
 }

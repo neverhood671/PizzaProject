@@ -58,11 +58,11 @@ public class PizzaDao extends Dao {
     public void create(Pizza pizza) {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("pizzaId",  convertUUIDToOracleID(pizza.getId()))
-                .addValue("pizzaSize", pizza.getPizza_size())
-                .addValue("pizzaTypeId", convertUUIDToOracleID(pizza.getPizza_type_id()))
-                .addValue("pizzaStatus", pizza.getPizza_status())
-                .addValue("orderId",  convertUUIDToOracleID(pizza.getOrder_id()))
-                .addValue("cookId",  convertUUIDToOracleID(pizza.getCook_id()));
+                .addValue("pizzaSize", pizza.getPizzaSize())
+                .addValue("pizzaTypeId", convertUUIDToOracleID(pizza.getPizzaTypeId()))
+                .addValue("pizzaStatus", pizza.getPizzaStatus())
+                .addValue("orderId",  convertUUIDToOracleID(pizza.getOrderId()))
+                .addValue("cookId",  convertUUIDToOracleID(pizza.getCookId()));
         getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
     }
 

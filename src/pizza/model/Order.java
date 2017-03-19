@@ -8,22 +8,22 @@ import java.util.UUID;
  */
 public class Order extends Entity{
 
-    private String order_status;
+    private String orderStatus;
 
     public Order() {
 
     }
 
-    public Order(String order_status) {
+    public Order(String orderStatus) {
         this.id = UUID.randomUUID();
-        this.order_status = order_status;
+        this.orderStatus = orderStatus;
     }
 
-    public String getOrder_status() {
-        return order_status;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setOrder_status(String order_status) {
-        this.order_status = order_status;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }
