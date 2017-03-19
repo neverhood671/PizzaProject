@@ -1,10 +1,10 @@
 
 /*table "PIZZA_TYPE"*/
-INSERT INTO "PIZZA_TYPE" VALUES (newid(), 'Mexican', '300', '500', '730');
-INSERT INTO "PIZZA_TYPE" VALUES (newid(), 'Pepperoni', '320', '530', '720');
-INSERT INTO "PIZZA_TYPE" VALUES (newid(), 'Margarita', '280', '450', '630');
-INSERT INTO "PIZZA_TYPE" VALUES (newid(), 'Cheese', '300', '500', '730');
-INSERT INTO "PIZZA_TYPE" VALUES (newid(), 'Meat', '350', '550', '750');
+INSERT INTO "PIZZATYPE" VALUES (newid(), 'Mexican', '300', '500', '730');
+INSERT INTO "PIZZATYPE" VALUES (newid(), 'Pepperoni', '320', '530', '720');
+INSERT INTO "PIZZATYPE" VALUES (newid(), 'Margarita', '280', '450', '630');
+INSERT INTO "PIZZATYPE" VALUES (newid(), 'Cheese', '300', '500', '730');
+INSERT INTO "PIZZATYPE" VALUES (newid(), 'Meat', '350', '550', '750');
 /
 
 /*table COOK*/
