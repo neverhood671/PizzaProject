@@ -36,7 +36,7 @@ DECLARE
   ord         VARCHAR2(50);
 
   CURSOR cook_cur IS SELECT "ID" FROM "COOK";
-  CURSOR pizza_type_cur IS SELECT "ID" FROM "PIZZA_TYPE";
+  CURSOR pizza_type_cur IS SELECT "ID" FROM "PIZZATYPE";
   CURSOR ord_cur IS SELECT "ID" FROM "ORDER";
 BEGIN
 
@@ -49,9 +49,9 @@ BEGIN
     BEGIN
       FETCH pizza_type_cur INTO pizza_type;
       FETCH cook_cur INTO cook;
-      INSERT INTO "PIZZA" VALUES (newid(), 'S', pizza_type, 'OPEN', ord, cook);
-      INSERT INTO "PIZZA" VALUES (newid(), 'M', pizza_type, 'IN PROGRESS', ord, cook);
-      INSERT INTO "PIZZA" VALUES (newid(), 'L', pizza_type, 'READY', ord, cook);
+      INSERT INTO "PIZZA" VALUES (newid(), 'S', pizzatype, 'OPEN', ord, cook);
+      INSERT INTO "PIZZA" VALUES (newid(), 'M', pizzatype, 'IN PROGRESS', ord, cook);
+      INSERT INTO "PIZZA" VALUES (newid(), 'L', pizzatype, 'READY', ord, cook);
     END;
   END LOOP;
   commit;
