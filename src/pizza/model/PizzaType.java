@@ -9,21 +9,30 @@ import java.util.UUID;
 public class PizzaType extends Entity {
 
     private String name;
-    private double priseS;
-    private double priseM;
-    private double priseL;
+    private double priceS;
+    private double priceM;
+    private double priceL;
 
-    public PizzaType(String name, double priseS, double priseM, double priseL) {
+    public PizzaType(String name, double priceS, double priceM, double priceL) {
         this.id = UUID.randomUUID();
         this.name = name;
-        this.priseS = priseS;
-        this.priseM = priseM;
-        this.priseL = priseL;
+        this.priceS = priceS;
+        this.priceM = priceM;
+        this.priceL = priceL;
+    }
+
+    public PizzaType(UUID id, String name, double priceS, double priceM, double priceL) {
+        this.id = id;
+        this.name = name;
+        this.priceS = priceS;
+        this.priceM = priceM;
+        this.priceL = priceL;
     }
 
     public PizzaType() {
 
     }
+
 
     public String getName() {
         return name;
@@ -31,30 +40,6 @@ public class PizzaType extends Entity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public double getPriseS() {
-        return priseS;
-    }
-
-    public void setPriseS(double priseS) {
-        this.priseS = priseS;
-    }
-
-    public double getPriseM() {
-        return priseM;
-    }
-
-    public void setPriseM(double priseM) {
-        this.priseM = priseM;
-    }
-
-    public double getPriseL() {
-        return priseL;
-    }
-
-    public void setPriseL(double priseL) {
-        this.priseL = priseL;
     }
 }
 

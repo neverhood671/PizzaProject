@@ -17,6 +17,7 @@ public class Pizza extends Entity {
     public Pizza() {
 
     }
+
     public Pizza(String size, UUID pizzaTypeId, String pizzaStatus, UUID orderId, UUID cookId) {
         this.id = UUID.randomUUID();
         this.pizzaSize = size;
@@ -26,6 +27,7 @@ public class Pizza extends Entity {
         this.cookId = cookId;
     }
 
+
     public Pizza(String size, String pizzaTypeId, String pizzaStatus, String orderId, String cookId) {
         this.id = UUID.randomUUID();
         this.pizzaSize = size;
@@ -33,6 +35,15 @@ public class Pizza extends Entity {
         this.pizzaStatus = pizzaStatus;
         this.orderId = UUID.fromString(orderId);
         this.cookId = UUID.fromString(cookId);
+    }
+
+    public Pizza(UUID id, String size, UUID pizzaTypeId, String pizzaStatus, UUID orderId, UUID cookId) {
+        this.id = id;
+        this.pizzaSize = size;
+        this.pizzaTypeId = pizzaTypeId;
+        this.pizzaStatus = pizzaStatus;
+        this.orderId = orderId;
+        this.cookId = cookId;
     }
 
     public String getPizzaSize() {

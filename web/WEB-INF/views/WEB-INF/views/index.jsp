@@ -1,4 +1,4 @@
-<%@ page import="java.Test" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Alexandra
   Date: 24.02.2017
@@ -7,10 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>Test page</title>
-  </head>
-  <body>
-<h3 class="message">  5624685</h3>
-  </body>
+</head>
+<body>
+<h3 class="message"> 5624685</h3>
+</body>
 </html>
