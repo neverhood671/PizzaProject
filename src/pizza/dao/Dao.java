@@ -1,9 +1,11 @@
 package pizza.dao;
 
+import com.sun.istack.internal.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.util.UUID;
@@ -21,11 +23,18 @@ public abstract class Dao extends NamedParameterJdbcDaoSupport {
         initTemplateConfig();
     }
 
-    public String convertUUIDToOracleID(UUID uuid) {
+    @Nullable
+    public String convertUUIDToOracleID(@Nullable UUID uuid) {
+        if (uuid == null)
+            return null;
         return uuid.toString().replace("-", "");
     }
 
-    public UUID convertOracleIDToUUID(String uuidStr) {
+    @Nullable
+    public UUID convertOracleIDToUUID(@Nullable String uuidStr) {
+        if (StringUtils.isEmpty(uuidStr)) {
+            return null;
+        }
         StringBuilder stringBuilder = new StringBuilder(uuidStr);
         stringBuilder.insert(8, "-");
         stringBuilder.insert(13, "-");

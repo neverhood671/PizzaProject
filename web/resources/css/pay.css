@@ -1,0 +1,9 @@
+.pay {
+    width: 512px;
+    height: 80px;
+    font-size: 50px;
+    display: block;
+    left: 50%;
+    margin: 15px 15px 15px -256px;
+    position: absolute;
+}

@@ -1,6 +1,7 @@
 package pizza.model;
 
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -9,27 +10,27 @@ import java.util.UUID;
 public class Order extends Entity {
 
     private String orderStatus;
-    private String creationDate;
+    private Date creationDate;
 
     public Order() {
 
     }
 
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Order(String orderStatus, String creationDate) {
+    public Order(String orderStatus, Date creationDate) {
         this.id = UUID.randomUUID();
         this.orderStatus = orderStatus;
         this.creationDate = creationDate;
     }
 
-    public Order(UUID id, String orderStatus, String creationDate) {
+    public Order(UUID id, String orderStatus, Date creationDate) {
         this.id = id;
         this.orderStatus = orderStatus;
         this.creationDate = creationDate;

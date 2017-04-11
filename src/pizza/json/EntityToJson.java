@@ -18,7 +18,16 @@ public class EntityToJson {
         Field[] fields = entity.getClass().getDeclaredFields();
         for (Field field : fields) {
             field.setAccessible(true);
-            jsonObject.addProperty(field.getName(), field.get(entity).toString());
+            Object value = field.get(entity);
+            if (value instanceof Boolean) {
+                jsonObject.addProperty(field.getName(), (Boolean) value);
+            } else if (value instanceof Number) {
+                jsonObject.addProperty(field.getName(), (Number) value);
+            } else if (value instanceof Character) {
+                jsonObject.addProperty(field.getName(), (Character) value);
+            } else {
+                jsonObject.addProperty(field.getName(), field.get(entity).toString());
+            }
         }
         return jsonObject;
     }

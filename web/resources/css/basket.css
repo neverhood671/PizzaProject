@@ -1,0 +1,37 @@
+.pizzaImage {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    background-size: 80px 80px;
+}
+
+.pizzaDescriptionBox {
+    display: inline-block;
+    text-align: left;
+    margin: 0 0 10px 15px;
+}
+
+/* ******** Pizza styles ********** */
+.pizzaImage.Sea {
+    background-image: url(/resources/Pizza_sea.png);
+}
+
+.pizzaImage.Pepperoni {
+    background-image: url(/resources/Pizza_pepperoni.png);
+}
+
+.pizzaImage.Margarita {
+    background-image: url(/resources/Pizza_margarita.png);
+}
+
+.pizzaImage.ReadSea {
+    background-image: url(/resources/Pizza_red_sea.png);
+}
+
+.pizzaImage.PepMash {
+    background-image: url(/resources/Pizza_pepperoni_mushrooms.png);
+}
+
+.pizzaImage.Mashrooms {
+    background-image: url(/resources/Pizza_mushrooms.png);
+}

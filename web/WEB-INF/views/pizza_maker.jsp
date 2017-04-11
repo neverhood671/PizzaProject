@@ -9,6 +9,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
+    <title>Пиццемейкер</title>
     <spring:url value="/resources/css/pizzaMaker.css" var="mainCss"/>
     <spring:url value="/resources/css/loadingBox.css" var="loadingBoxCss"/>
     <spring:url value="/resources/Pizza_sea.png" var="seaImg"/>

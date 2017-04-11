@@ -6,6 +6,7 @@ import pizza.dao.OrderDao;
 import pizza.model.Order;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -22,7 +23,7 @@ public class OrderRowMapper extends RowMapper<Order> {
         return new Order(
                 dao.convertOracleIDToUUID((String) order.get("ID")),
                 (String) order.get("ORDER_STATUS"),
-                (String) order.get("CREATION_DATE"));
+                (Date) order.get("CREATION_DATE"));
     }
 
 

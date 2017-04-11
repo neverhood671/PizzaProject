@@ -64,7 +64,7 @@ public class ClientPizzaMakerWebController {
     @ResponseBody
     String doLogin(HttpServletRequest request,
                    HttpServletResponse httpServletResponse,
-                   @RequestParam(value = "login", required = false) String login,
+                   @RequestParam(value = "login") String login,
                    @RequestParam(value = "password", required = false) String password) throws Exception {
         Cook pizzaMaker = (Cook) request.getSession().getAttribute("cook");
         if (pizzaMaker != null) {

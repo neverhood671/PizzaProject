@@ -8,7 +8,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <spring:url value="/resources/css/style.css" var="mainCss"/>
+    <title>Пиццы</title>
+    <spring:url value="/resources/css/startPage.css" var="mainCss"/>
+    <spring:url value="/resources/css/startPageBreadcrumb.css" var="startPageBreadcrumbCss"/>
     <spring:url value="/resources/Pizza_sea.png" var="seaImg"/>
     <spring:url value="/resources/Pizza_red_sea.png" var="redSeaImg"/>
     <spring:url value="/resources/Pizza_margarita.png" var="margaritaImg"/>
@@ -19,6 +21,7 @@
     <spring:url value="/resources/js/util.js" var="utilJs"/>
     <spring:url value="/resources/js/clientStartPageWorker.js" var="clientStartPageWorkerJs"/>
     <link href="${mainCss}" rel="stylesheet"/>
+    <link href="${startPageBreadcrumbCss}" rel="stylesheet"/>
     <script type="text/javascript" src="${jqueryJs}"></script>
     <script type="text/javascript" src="${utilJs}"></script>
     <script type="text/javascript" src="${clientStartPageWorkerJs}"></script>
@@ -36,6 +39,7 @@
     <div>
         <span id="basketCost">0</span> ₽
     </div>
+    <button class=btn-primary onclick="goToBasket()">Перейти в корзину</button>
 </div>
 <div class="center">
     <div class="main_block">
@@ -46,21 +50,21 @@
                 </div>
                 <div class="text">Маргарита</div>
                 <p>
-                    <input id="margSizeS" name="MargaritaSize" type="radio" value="S"/>
+                    <input name="Margarita" type="radio" value="S"/>
                     маленькая
                 </p>
                 <p>
-                    <input id="margSizeM" name="MargaritaSize" type="radio" value="M"/>
+                    <input name="Margarita" type="radio" value="M"/>
                     средняя
                 </p>
                 <p>
-                    <input checked="checked" id="margSizeL" name="MargaritaSize" type="radio" value="L"/>
+                    <input name="Margarita" type="radio" value="L" checked="checked"/>
                     большая
                 </p>
 
 
                 <div class="price_value">
-                    <span class="value" id="MargaritaCurrentPrice"></span> ₽
+                    <span class="value" id="MargaritaCurrentPrice">375</span> ₽
                 </div>
                 <button class=btn-primary onclick="showOrderPrice('Margarita')">Добавить в корзину</button>
 
@@ -72,15 +76,15 @@
                 </div>
                 <div class="text">Морская</div>
                 <p>
-                    <input id="seaSizeS" name="SeaSize" type="radio" value="S"/>
+                    <input name="Sea" type="radio" value="S"/>
                     маленькая
                 </p>
                 <p>
-                    <input id="seaSizeM" name="SeaSize" type="radio" value="M"/>
+                    <input name="Sea" type="radio" value="M"/>
                     средняя
                 </p>
                 <p>
-                    <input checked="checked" id="seaSizeL" name="SeaSize" type="radio" value="L"/>
+                    <input name="Sea" type="radio" value="L" checked="checked"/>
                     большая
                 </p>
 
@@ -96,15 +100,15 @@
                 </div>
                 <div class="text">Грибная</div>
                 <p>
-                    <input id="mashroomsSizeS" name="MashroomsSize" type="radio" value="S"/>
+                    <input name="Mashrooms" type="radio" value="S"/>
                     маленькая
                 </p>
                 <p>
-                    <input id="mashroomsSizeM" name="MashroomsSize" type="radio" value="M"/>
+                    <input name="Mashrooms" type="radio" value="M"/>
                     средняя
                 </p>
                 <p>
-                    <input checked="checked" id="mashroomsSizeL" name="MashroomsSize" type="radio" value="L"/>
+                    <input name="Mashrooms" type="radio" value="L" checked="checked"/>
                     большая
                 </p>
 
@@ -122,15 +126,15 @@
                 </div>
                 <div class="text">Пепперони</div>
                 <p>
-                    <input id="pepSizeS" name="PepperoniSize" type="radio" value="S"/>
+                    <input name="Pepperoni" type="radio" value="S"/>
                     маленькая
                 </p>
                 <p>
-                    <input id="pepSizeM" name="PepperoniSize" type="radio" value="M"/>
+                    <input name="Pepperoni" type="radio" value="M"/>
                     средняя
                 </p>
                 <p>
-                    <input checked="checked" id="pepSizeL" name="PepperoniSize" type="radio" value="L"/>
+                    <input name="Pepperoni" type="radio" value="L" checked="checked"/>
                     большая
                 </p>
 
@@ -147,15 +151,15 @@
                 </div>
                 <div class="text">Морская Острая</div>
                 <p>
-                    <input id="redSeaSizeS" name="ReadSeaSize" type="radio" value="S"/>
+                    <input name="ReadSea" type="radio" value="S"/>
                     маленькая
                 </p>
                 <p>
-                    <input id="redSeaSizeM" name="ReadSeaSize" type="radio" value="M"/>
+                    <input name="ReadSea" type="radio" value="M"/>
                     средняя
                 </p>
                 <p>
-                    <input checked="checked" id="redSeaSizeL" name="ReadSeaSize" type="radio" value="L"/>
+                    <input name="ReadSea" type="radio" value="L" checked="checked"/>
                     большая
                 </p>
 
@@ -171,15 +175,15 @@
                 </div>
                 <div class="text">Пепперони с грибами</div>
                 <p>
-                    <input id="pepMashSizeS" name="PepMashSize" type="radio" value="S"/>
+                    <input name="PepMash" type="radio" value="S"/>
                     маленькая
                 </p>
                 <p>
-                    <input id="pepMashSizeM" name="PepMashSize" type="radio" value="M"/>
+                    <input name="PepMash" type="radio" value="M"/>
                     средняя
                 </p>
                 <p>
-                    <input checked="checked" id="pepMashSizeL" name="PepMashSize" type="radio" value="L"/>
+                    <input name="PepMash" type="radio" value="L" checked="checked"/>
                     большая
                 </p>
 
@@ -189,9 +193,6 @@
                 <button class=btn-primary onclick="showOrderPrice('PepMash')">Добавить в корзину</button>
             </div>
         </div>
-    </div>
-    <div>
-        <button class=btn-primary>Перейти в корзину</button>
     </div>
 </div>
 </body>

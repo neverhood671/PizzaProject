@@ -12,7 +12,10 @@ import pizza.orm.PizzaTypeRowMapper;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Настя on 02.04.2017.
@@ -34,8 +37,14 @@ public class PizzaTypeDao extends Dao {
         super(dataSource, jdbcTemplate);
     }
 
-    public List<Map<String, Object>> getList() {
-        return getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, new HashMap<>());
+    @Nullable
+    public List<PizzaType> getList() {
+        try {
+            return rowMapper.getEntityList(getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, new HashMap<>()));
+        } catch (SQLException ignored) {
+            ignored.printStackTrace();
+        }
+        return null;
     }
 
     public String getCurrentPrice(String pizzaTypeName, String size) {

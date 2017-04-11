@@ -21,8 +21,13 @@ import java.util.UUID;
 @Repository
 public class OrderDao extends Dao {
 
+    public static final String OPEN_STATUS = "OPEN";
+    public static final String IN_PROGRESS_STATUS = "IN PROGRESS";
+    public static final String READY_STATUS = "READY";
+    public static final String CLOSE_STATUS = "CLOSE";
+
     private static final String CREATE_SQL =
-            "INSERT INTO \"ORDER\" VALUES (:orderId, :orderStatus)";
+            "INSERT INTO \"ORDER\" VALUES (:orderId, :orderStatus, :orderCreateTime)";
     private static final String GET_ALL_SQL = "SELECT * FROM \"ORDER\"";
     private static final String GET_SQL = "SELECT * FROM ORDER WHERE ID = :orderId";
     private static final String UPDATE_STATUS_SQL =
@@ -37,7 +42,8 @@ public class OrderDao extends Dao {
     public void create(Order order) {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("orderId", convertUUIDToOracleID(order.getId()))
-                .addValue("orderStatus", order.getOrderStatus());
+                .addValue("orderStatus", order.getOrderStatus())
+                .addValue("orderCreateTime", order.getCreationDate());
         getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
     }
 
