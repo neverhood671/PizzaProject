@@ -11,7 +11,6 @@ import pizza.model.PizzaType;
 import pizza.orm.PizzaTypeRowMapper;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -39,12 +38,7 @@ public class PizzaTypeDao extends Dao {
 
     @Nullable
     public List<PizzaType> getList() {
-        try {
-            return rowMapper.getEntityList(getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, new HashMap<>()));
-        } catch (SQLException ignored) {
-            ignored.printStackTrace();
-        }
-        return null;
+        return rowMapper.getEntityList(getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, new HashMap<>()));
     }
 
     public String getCurrentPrice(String pizzaTypeName, String size) {
@@ -60,19 +54,13 @@ public class PizzaTypeDao extends Dao {
 
     @Nullable
     public PizzaType getPizzaType(UUID pizzaTypeId) {
-        try {
-            SqlParameterSource params = new MapSqlParameterSource()
-                    .addValue("pizzaTypeId", convertUUIDToOracleID(pizzaTypeId));
-            List<PizzaType> pizzas = rowMapper.getEntityList(
-                    getNamedParameterJdbcTemplate().queryForList(GET_TYPE_FOR_ID, params));
-            if (!CollectionUtils.isEmpty(pizzas)) {
-                return pizzas.get(0);
-            }
-        } catch (SQLException ignored) {
-            ignored.printStackTrace();
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("pizzaTypeId", convertUUIDToOracleID(pizzaTypeId));
+        List<PizzaType> pizzas = rowMapper.getEntityList(
+                getNamedParameterJdbcTemplate().queryForList(GET_TYPE_FOR_ID, params));
+        if (!CollectionUtils.isEmpty(pizzas)) {
+            return pizzas.get(0);
         }
         return null;
     }
-
-
 }

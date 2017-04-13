@@ -11,7 +11,6 @@ import pizza.model.Pizza;
 import pizza.orm.PizzaRowMapper;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.*;
 
 
@@ -40,10 +39,11 @@ public class PizzaDao extends Dao {
     private static final String GET_ALL_SQL = "SELECT ID, PIZZASIZE, PIZZATYPEID, PIZZASTATUS, " +
             "ORDERID, COOKID FROM PIZZA";
     private static final String GET_SQL = "SELECT ID, PIZZASIZE, PIZZATYPEID, PIZZASTATUS, ORDERID, COOKID FROM PIZZA WHERE ID = :ID";
+    private static final String ASSIGN_PIZZA_SQL = "UPDATE PIZZA SET PIZZASTATUS = :pizzaStatus, COOKID = :cookId WHERE ID = :pizzaId";
     private static final String UPDATE_STATUS_SQL = "UPDATE PIZZA SET PIZZASTATUS = :pizzaStatus WHERE ID = :pizzaId";
     private static final String UPDATE_COOK_SQL = "UPDATE PIZZA SET COOKID = :cookId WHERE ID = :pizzaId";
 
-    private static final String GET_ALL_OPEN_SQL = "SELECT PIZZA.ID, PIZZA.PIZZA_SIZE, PIZZA.PIZZATYPEID, PIZZA.PIZZASTATUS, " +
+    private static final String GET_ALL_OPEN_SQL = "SELECT PIZZA.ID, PIZZA.PIZZASIZE, PIZZA.PIZZATYPEID, PIZZA.PIZZASTATUS, " +
             "PIZZA.ORDERID, PIZZA.COOKID FROM PIZZA , \"ORDER\" WHERE PIZZA.PIZZASTATUS LIKE '%OPEN%' " +
             "AND PIZZA.ORDERID = \"ORDER\".ID ORDER BY  \"ORDER\".CREATIONDATE";
 
@@ -76,8 +76,9 @@ public class PizzaDao extends Dao {
         getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
     }
 
-    public List<Map<String, Object>> getOpenPizza() {
-        return getNamedParameterJdbcTemplate().queryForList(GET_ALL_OPEN_SQL, Collections.emptyMap());
+    public List<Pizza> getOpenPizza() {
+        return rowMapper.getEntityList(
+                getNamedParameterJdbcTemplate().queryForList(GET_ALL_OPEN_SQL, Collections.emptyMap()));
     }
 
     public List<Map<String, Object>> getList() {
@@ -100,6 +101,14 @@ public class PizzaDao extends Dao {
         return getNamedParameterJdbcTemplate().queryForMap(GET_SQL, params);
     }
 
+    public void assignPizza(UUID pizzaId, UUID cookId, String pizzaStatus) {
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("pizzaId", convertUUIDToOracleID(pizzaId))
+                .addValue("cookId", convertUUIDToOracleID(cookId))
+                .addValue("pizzaStatus", pizzaStatus);
+        getNamedParameterJdbcTemplate().update(ASSIGN_PIZZA_SQL, params);
+    }
+
 
     public void updateStatus(UUID pizzaId, String pizzaStatus) {
         SqlParameterSource params = new MapSqlParameterSource()
@@ -118,17 +127,13 @@ public class PizzaDao extends Dao {
 
     @Nullable
     public Pizza getPizzaForCook(UUID cookId) {
-        try {
-            SqlParameterSource params = new MapSqlParameterSource()
-                    .addValue("cookId", convertUUIDToOracleID(cookId))
-                    .addValue("pizzaStatus", IN_PROGRESS_STATUS);
-            List<Pizza> pizzas = rowMapper.getEntityList(
-                    getNamedParameterJdbcTemplate().queryForList(GET_PIZZA_FOR_COOK, params));
-            if (!CollectionUtils.isEmpty(pizzas)) {
-                return pizzas.get(0);
-            }
-        } catch (SQLException ignored) {
-            ignored.printStackTrace();
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("cookId", convertUUIDToOracleID(cookId))
+                .addValue("pizzaStatus", IN_PROGRESS_STATUS);
+        List<Pizza> pizzas = rowMapper.getEntityList(
+                getNamedParameterJdbcTemplate().queryForList(GET_PIZZA_FOR_COOK, params));
+        if (!CollectionUtils.isEmpty(pizzas)) {
+            return pizzas.get(0);
         }
         return null;
     }

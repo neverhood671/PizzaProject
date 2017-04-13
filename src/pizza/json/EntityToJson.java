@@ -15,7 +15,12 @@ import java.util.List;
 public class EntityToJson {
     public JsonObject entityToJsonObject(Entity entity) throws IllegalAccessException {
         JsonObject jsonObject = new JsonObject();
-        Field[] fields = entity.getClass().getDeclaredFields();
+        addFieldsToJsonObject(jsonObject, entity, Entity.class.getDeclaredFields());
+        addFieldsToJsonObject(jsonObject, entity, entity.getClass().getDeclaredFields());
+        return jsonObject;
+    }
+
+    private void addFieldsToJsonObject(JsonObject jsonObject, Entity entity, Field[] fields) throws IllegalAccessException {
         for (Field field : fields) {
             field.setAccessible(true);
             Object value = field.get(entity);
@@ -29,7 +34,6 @@ public class EntityToJson {
                 jsonObject.addProperty(field.getName(), field.get(entity).toString());
             }
         }
-        return jsonObject;
     }
 
     public JsonArray entityListToJsonArray(List<? extends Entity> entities) throws IllegalAccessException {

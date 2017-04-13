@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pizza.dao.OrderDao;
 import pizza.model.Order;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.Map;
 
@@ -19,11 +18,11 @@ public class OrderRowMapper extends RowMapper<Order> {
     private OrderDao dao;
 
     @Override
-    public Order getEntity(Map<String, Object> order) throws SQLException {
+    public Order getEntity(Map<String, Object> order) {
         return new Order(
                 dao.convertOracleIDToUUID((String) order.get("ID")),
-                (String) order.get("ORDER_STATUS"),
-                (Date) order.get("CREATION_DATE"));
+                (String) order.get("ORDERSTATUS"),
+                (Date) order.get("CREATIONDATE"));
     }
 
 

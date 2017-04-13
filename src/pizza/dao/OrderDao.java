@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 import pizza.model.Order;
+import pizza.orm.OrderRowMapper;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -29,9 +30,17 @@ public class OrderDao extends Dao {
     private static final String CREATE_SQL =
             "INSERT INTO \"ORDER\" VALUES (:orderId, :orderStatus, :orderCreateTime)";
     private static final String GET_ALL_SQL = "SELECT * FROM \"ORDER\"";
+    private static final String GET_NOT_CLOSED_ORDERS = "SELECT * FROM \"ORDER\" WHERE ORDERSTATUS = :inProgressStatus OR " +
+            "ORDERSTATUS = :readyStatus " +
+            "ORDER BY CREATIONDATE";
     private static final String GET_SQL = "SELECT * FROM ORDER WHERE ID = :orderId";
     private static final String UPDATE_STATUS_SQL =
             "UPDATE \"ORDER\" SET ORDERSTATUS = :orderStatus WHERE ID = :orderId";
+    private static final String FINISH_ORDERS_SQL = "UPDATE \"ORDER\" o SET o.ORDERSTATUS = :orderStatus " +
+            "WHERE NOT EXISTS(SELECT p.ID FROM PIZZA p WHERE p.ORDERID = o.ID AND p.PIZZASTATUS = :pizzaProgressStatus)";
+
+    @Autowired
+    private OrderRowMapper orderRowMapper;
 
     @Autowired
     public OrderDao(DataSource dataSource, JdbcTemplate jdbcTemplate) {
@@ -54,9 +63,16 @@ public class OrderDao extends Dao {
         getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
     }
 
+    public List<Order> getNotClosedOrders() {
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("inProgressStatus", IN_PROGRESS_STATUS)
+                .addValue("readyStatus", READY_STATUS);
+        return orderRowMapper.getEntityList(getNamedParameterJdbcTemplate().queryForList(GET_NOT_CLOSED_ORDERS, params));
+    }
+
 
     public List<Map<String, Object>> getList() {
-        return getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, new HashMap<String, Object>());
+        return getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, new HashMap<>());
     }
 
     public Map<String, Object> get(UUID orderId) {
@@ -77,6 +93,14 @@ public class OrderDao extends Dao {
                 .addValue("orderId", convertUUIDToOracleID(orderID))
                 .addValue("orderStatus", status);
         getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, params);
+    }
+
+    public void finishOrders() {
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("pizzaId", convertUUIDToOracleID(UUID.randomUUID()))
+                .addValue("orderStatus", READY_STATUS)
+                .addValue("pizzaProgressStatus", PizzaDao.IN_PROGRESS_STATUS);
+        getNamedParameterJdbcTemplate().update(FINISH_ORDERS_SQL, params);
     }
 
 

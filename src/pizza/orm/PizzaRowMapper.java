@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pizza.dao.PizzaDao;
 import pizza.model.Pizza;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 /**
@@ -18,7 +17,7 @@ public class PizzaRowMapper extends RowMapper<Pizza> {
     private PizzaDao dao;
 
     @Override
-    public Pizza getEntity(Map<String, Object> pizza) throws SQLException {
+    public Pizza getEntity(Map<String, Object> pizza) {
         return new Pizza(
                 dao.convertOracleIDToUUID((String) pizza.get("ID")),
                 (String) pizza.get("PIZZASIZE"),

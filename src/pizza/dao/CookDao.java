@@ -25,7 +25,8 @@ public class CookDao extends Dao {
     @Autowired
     private CookRowMapper rowMapper;
 
-    private static final String GET_FREE_COOK_IDS = "SELECT ID FROM COOK WHERE COOKSTATUS LIKE '%FREE%' ORDER_BY PIZZACOUNT" +
+    private static final String GET_FREE_COOK_IDS = "SELECT * FROM " +
+            "(select id from cook WHERE COOKSTATUS LIKE '%FREE%' ORDER BY PIZZACOUNT) " +
             "WHERE ROWNUM <= :necessaryCookCount";
     private static final String UPDATE_STATUS_SQL = "UPDATE COOK SET COOKSTATUS = :cookStatus WHERE ID = :cookId";
     private static final String UPDATE_PIZZA_COUNT_SQL = "UPDATE COOK SET PIZZACOUNT = PIZZACOUNT + 1 WHERE ID = :pizzaId";
@@ -45,9 +46,9 @@ public class CookDao extends Dao {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("necessaryCookCount", necessaryCookCount);
         List ids = getNamedParameterJdbcTemplate().queryForList(GET_FREE_COOK_IDS, params);
-        List<UUID> uuid = new ArrayList<UUID>();
+        List<UUID> uuid = new ArrayList<>();
         for (Object id : ids) {
-            uuid.add(UUID.fromString((String) id));
+            uuid.add(convertOracleIDToUUID((String) ((Map) id).get("ID")));
         }
         return uuid;
     }

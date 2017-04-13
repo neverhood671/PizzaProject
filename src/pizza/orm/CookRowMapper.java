@@ -6,7 +6,6 @@ import pizza.dao.CookDao;
 import pizza.model.Cook;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.Map;
 
 /**
@@ -19,7 +18,7 @@ public class CookRowMapper extends RowMapper<Cook> {
     private CookDao dao;
 
     @Override
-    public Cook getEntity(Map<String, Object> entity) throws SQLException {
+    public Cook getEntity(Map<String, Object> entity) {
         return new Cook(
                 dao.convertOracleIDToUUID((String) entity.get("ID")),
                 (String) entity.get("NAME"),

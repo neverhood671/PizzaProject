@@ -6,7 +6,6 @@ import pizza.dao.PizzaTypeDao;
 import pizza.model.PizzaType;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.Map;
 
 /**
@@ -19,7 +18,7 @@ public class PizzaTypeRowMapper extends RowMapper<PizzaType> {
     private PizzaTypeDao dao;
 
     @Override
-    public PizzaType getEntity(Map<String, Object> pizza) throws SQLException {
+    public PizzaType getEntity(Map<String, Object> pizza) {
         return new PizzaType(
                 dao.convertOracleIDToUUID((String) pizza.get("ID")),
                 (String) pizza.get("NAME"),

@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.orderBox {
+    width: 49%;
+    display: inline-block;
+    position: relative;
+    float: left;
+}
+
+.orderHead {
+    padding: 15px;
+    text-align: center;
+}
+
+.orderList {
+    padding: 5px;
+}
