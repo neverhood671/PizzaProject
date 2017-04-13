@@ -7,9 +7,10 @@
 }
 
 .basketImg {
-    width: 60px;
-    height: 60px;
-    background-color: #d44; /*background-image*/
+    width: 96px;
+    height: 96px;
+    background-image: url(/resources/icons/basket.png);
+    display: inline-block;
 }
 
 .main_block {

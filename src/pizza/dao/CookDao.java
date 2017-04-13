@@ -10,7 +10,10 @@ import pizza.model.Cook;
 import pizza.orm.CookRowMapper;
 
 import javax.sql.DataSource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 /**
@@ -29,13 +32,10 @@ public class CookDao extends Dao {
             "(select id from cook WHERE COOKSTATUS LIKE '%FREE%' ORDER BY PIZZACOUNT) " +
             "WHERE ROWNUM <= :necessaryCookCount";
     private static final String UPDATE_STATUS_SQL = "UPDATE COOK SET COOKSTATUS = :cookStatus WHERE ID = :cookId";
-    private static final String UPDATE_PIZZA_COUNT_SQL = "UPDATE COOK SET PIZZACOUNT = PIZZACOUNT + 1 WHERE ID = :pizzaId";
     private static final String LOAD_COOK_FROM_LOGIN = "SELECT ID, NAME, COOKSTATUS, PIZZACOUNT FROM COOK " +
             "WHERE NAME = :login";
     private static final String FINISH_PIZZA_SQL =
             "UPDATE COOK SET COOKSTATUS = :cookStatus, PIZZACOUNT = :pizzaCount WHERE ID = :cookId";
-    private static final String START_PIZZA_SQL =
-            "UPDATE COOK SET COOKSTATUS = :pizzaStatus WHERE ID = :cookId";
 
 
     public CookDao(DataSource dataSource, JdbcTemplate jdbcTemplate) {
@@ -58,17 +58,6 @@ public class CookDao extends Dao {
                 .addValue("cookId", convertUUIDToOracleID(cookId))
                 .addValue("cookStatus", cookStatus);
         getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, params);
-    }
-
-    public void updatePizzaCount(UUID cookId) {
-        getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, Collections.emptyMap());
-    }
-
-    public void startPizza(Cook cook) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("cookId", convertUUIDToOracleID(cook.getId()))
-                .addValue("cookStatus", BUSY_STATUS);
-        getNamedParameterJdbcTemplate().update(START_PIZZA_SQL, params);
     }
 
     public void finishPizza(Cook cook) {

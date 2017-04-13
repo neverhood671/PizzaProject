@@ -10,7 +10,7 @@ function payProcess(request) {
     try {
         var result = eval("(" + request.responseText + ")");
         if (result.status == "SUCCESS") {
-            location.href = '/startPage';  //todo replace to orders page
+            location.href = '/startPage';
         } else {
             alert("Ошибка соединения с сервером!");
         }

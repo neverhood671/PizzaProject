@@ -11,7 +11,9 @@ import pizza.model.Pizza;
 import pizza.orm.PizzaRowMapper;
 
 import javax.sql.DataSource;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -36,20 +38,11 @@ public class PizzaDao extends Dao {
     private static final String CREATE_SQL =
             "INSERT INTO PIZZA(ID, PIZZASIZE, PIZZATYPEID, PIZZASTATUS, ORDERID, COOKID) " +
                     "VALUES (:pizzaId, :pizzaSize, :pizzaTypeId, :pizzaStatus, :orderId, :cookId)";
-    private static final String GET_ALL_SQL = "SELECT ID, PIZZASIZE, PIZZATYPEID, PIZZASTATUS, " +
-            "ORDERID, COOKID FROM PIZZA";
-    private static final String GET_SQL = "SELECT ID, PIZZASIZE, PIZZATYPEID, PIZZASTATUS, ORDERID, COOKID FROM PIZZA WHERE ID = :ID";
     private static final String ASSIGN_PIZZA_SQL = "UPDATE PIZZA SET PIZZASTATUS = :pizzaStatus, COOKID = :cookId WHERE ID = :pizzaId";
     private static final String UPDATE_STATUS_SQL = "UPDATE PIZZA SET PIZZASTATUS = :pizzaStatus WHERE ID = :pizzaId";
-    private static final String UPDATE_COOK_SQL = "UPDATE PIZZA SET COOKID = :cookId WHERE ID = :pizzaId";
-
     private static final String GET_ALL_OPEN_SQL = "SELECT PIZZA.ID, PIZZA.PIZZASIZE, PIZZA.PIZZATYPEID, PIZZA.PIZZASTATUS, " +
             "PIZZA.ORDERID, PIZZA.COOKID FROM PIZZA , \"ORDER\" WHERE PIZZA.PIZZASTATUS LIKE '%OPEN%' " +
             "AND PIZZA.ORDERID = \"ORDER\".ID ORDER BY  \"ORDER\".CREATIONDATE";
-
-    private static final String GET_OPEN_PIZZA_IDS = "SELECT PIZZA.ID FROM PIZZA , \"ORDER\" WHERE PIZZA.PIZZASTATUS LIKE '%OPEN%' " +
-            "AND PIZZA.ORDERID = \"ORDER\".ID ORDER BY  \"ORDER\".CREATIONDATE";
-
     private static final String GET_PIZZA_FOR_COOK = "SELECT  ID, PIZZASIZE, PIZZATYPEID, PIZZASTATUS, ORDERID, COOKID FROM PIZZA " +
             "WHERE COOKID = :cookId AND PIZZASTATUS = :pizzaStatus";
 
@@ -81,26 +74,6 @@ public class PizzaDao extends Dao {
                 getNamedParameterJdbcTemplate().queryForList(GET_ALL_OPEN_SQL, Collections.emptyMap()));
     }
 
-    public List<Map<String, Object>> getList() {
-        return getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, Collections.emptyMap());
-    }
-
-    public List<UUID> getOpenPizzaIds() {
-        List ids = getNamedParameterJdbcTemplate().queryForList(GET_OPEN_PIZZA_IDS, Collections.emptyMap());
-        List<UUID> uuid = new ArrayList<UUID>();
-        for (Object id : ids) {
-            String s = id.toString();
-            uuid.add(convertOracleIDToUUID(s.substring(4, s.length() - 1)));
-        }
-        return uuid;
-    }
-
-    public Map<String, Object> get(UUID pizzaId) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("ID", convertUUIDToOracleID(pizzaId));
-        return getNamedParameterJdbcTemplate().queryForMap(GET_SQL, params);
-    }
-
     public void assignPizza(UUID pizzaId, UUID cookId, String pizzaStatus) {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("pizzaId", convertUUIDToOracleID(pizzaId))
@@ -115,14 +88,6 @@ public class PizzaDao extends Dao {
                 .addValue("pizzaId", convertUUIDToOracleID(pizzaId))
                 .addValue("pizzaStatus", pizzaStatus);
         getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, params);
-    }
-
-
-    public void updateCook(UUID pizzaId, UUID cookId) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("pizzaId", convertUUIDToOracleID(pizzaId))
-                .addValue("cookId", convertUUIDToOracleID(cookId));
-        getNamedParameterJdbcTemplate().update(UPDATE_COOK_SQL, params);
     }
 
     @Nullable

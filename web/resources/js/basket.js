@@ -81,7 +81,7 @@ function drawBasketContent() {
 function addPizzaTypeBlock(orderedPizzaType) {
     var pizza = pizzaTypeMap[orderedPizzaType.pizzaName];
     if (!pizza) {
-        return;  //todo throw exception
+        return;
     }
 
     var basketContent = document.getElementById("basketContent");

@@ -9,9 +9,7 @@ import pizza.model.Order;
 import pizza.orm.OrderRowMapper;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -29,13 +27,9 @@ public class OrderDao extends Dao {
 
     private static final String CREATE_SQL =
             "INSERT INTO \"ORDER\" VALUES (:orderId, :orderStatus, :orderCreateTime)";
-    private static final String GET_ALL_SQL = "SELECT * FROM \"ORDER\"";
     private static final String GET_NOT_CLOSED_ORDERS = "SELECT * FROM \"ORDER\" WHERE ORDERSTATUS = :inProgressStatus OR " +
             "ORDERSTATUS = :readyStatus " +
             "ORDER BY CREATIONDATE";
-    private static final String GET_SQL = "SELECT * FROM ORDER WHERE ID = :orderId";
-    private static final String UPDATE_STATUS_SQL =
-            "UPDATE \"ORDER\" SET ORDERSTATUS = :orderStatus WHERE ID = :orderId";
     private static final String FINISH_ORDERS_SQL = "UPDATE \"ORDER\" o SET o.ORDERSTATUS = :orderStatus " +
             "WHERE NOT EXISTS(SELECT p.ID FROM PIZZA p WHERE p.ORDERID = o.ID AND p.PIZZASTATUS = :pizzaProgressStatus)";
 
@@ -47,19 +41,11 @@ public class OrderDao extends Dao {
         super(dataSource, jdbcTemplate);
     }
 
-
     public void create(Order order) {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("orderId", convertUUIDToOracleID(order.getId()))
                 .addValue("orderStatus", order.getOrderStatus())
                 .addValue("orderCreateTime", order.getCreationDate());
-        getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
-    }
-
-    public void create(String orderStatus) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("pizzaId", convertUUIDToOracleID(UUID.randomUUID()))
-                .addValue("orderStatus", orderStatus);
         getNamedParameterJdbcTemplate().update(CREATE_SQL, params);
     }
 
@@ -70,31 +56,6 @@ public class OrderDao extends Dao {
         return orderRowMapper.getEntityList(getNamedParameterJdbcTemplate().queryForList(GET_NOT_CLOSED_ORDERS, params));
     }
 
-
-    public List<Map<String, Object>> getList() {
-        return getNamedParameterJdbcTemplate().queryForList(GET_ALL_SQL, new HashMap<>());
-    }
-
-    public Map<String, Object> get(UUID orderId) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("orderId", convertUUIDToOracleID(orderId));
-        return getNamedParameterJdbcTemplate().queryForMap(GET_SQL, params);
-    }
-
-    public void updateStatus(Order order) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("orderId", convertUUIDToOracleID(order.getId()))
-                .addValue("orderStatus", order.getOrderStatus());
-        getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, params);
-    }
-
-    public void updateStatus(UUID orderID, String status) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("orderId", convertUUIDToOracleID(orderID))
-                .addValue("orderStatus", status);
-        getNamedParameterJdbcTemplate().update(UPDATE_STATUS_SQL, params);
-    }
-
     public void finishOrders() {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("pizzaId", convertUUIDToOracleID(UUID.randomUUID()))
@@ -102,9 +63,4 @@ public class OrderDao extends Dao {
                 .addValue("pizzaProgressStatus", PizzaDao.IN_PROGRESS_STATUS);
         getNamedParameterJdbcTemplate().update(FINISH_ORDERS_SQL, params);
     }
-
-
-//    public String  getOrderStatus(UUID orderId){
-//        get(orderId)
-//    }
 }
