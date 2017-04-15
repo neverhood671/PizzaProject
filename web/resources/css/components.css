@@ -1,0 +1,21 @@
+.btn-primary {
+    box-shadow: inset 0px -1px 0px 0px #D06809;
+    background: #f6912b;
+    background: linear-gradient(to bottom, #f49020 0%, #f78200 100%);
+    border-radius: 5px;
+    border: 1px solid #D06809;
+    padding: 5px;
+}
+
+.btn-primary:hover {
+    background: #f79e43;
+    background: linear-gradient(to bottom, #f79e43 0%, #f48b3e 100%);
+}
+
+.btn-primary:active {
+    box-shadow: 0 0 1px rgba(208, 98, 29, 0.9) inset, 0 1px 3px rgba(208, 98, 29, 0.9) inset, 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary:focus {
+    outline: none;
+}

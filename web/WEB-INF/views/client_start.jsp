@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <title>Пиццы</title>
+    <spring:url value="/resources/css/components.css" var="componentsCss"/>
     <spring:url value="/resources/css/startPage.css" var="mainCss"/>
     <spring:url value="/resources/css/startPageBreadcrumb.css" var="startPageBreadcrumbCss"/>
     <spring:url value="/resources/Pizza_sea.png" var="seaImg"/>
@@ -20,6 +21,7 @@
     <spring:url value="/resources/js/jquery-3.2.0.js" var="jqueryJs"/>
     <spring:url value="/resources/js/util.js" var="utilJs"/>
     <spring:url value="/resources/js/clientStartPageWorker.js" var="clientStartPageWorkerJs"/>
+    <link href="${componentsCss}" rel="stylesheet"/>
     <link href="${mainCss}" rel="stylesheet"/>
     <link href="${startPageBreadcrumbCss}" rel="stylesheet"/>
     <script type="text/javascript" src="${jqueryJs}"></script>

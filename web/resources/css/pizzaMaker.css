@@ -42,11 +42,8 @@ input:focus {
 }
 
 #loginBox #loginButton {
-    background: #f6912b;
     margin: 5px;
     display: inline-block;
-    border: none;
-    border-radius: 5px;
     height: 30px;
     width: 70px;
 }
@@ -74,11 +71,8 @@ input:focus {
 }
 
 #logoutButton {
-    background: #f6912b;
     margin: 5px;
     display: inline-block;
-    border: none;
-    border-radius: 5px;
     height: 25px;
     width: 70px;
 }
@@ -106,10 +100,8 @@ input:focus {
 }
 
 #workBox #finishPizza {
-    background: #f6912b;
     margin: 15px;
     display: inline-block;
-    border: none;
     border-radius: 15px;
     height: 70px;
     width: 300px;

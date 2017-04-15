@@ -20,22 +20,19 @@
 }
 .main_block .element{
     border: solid 1px #C7CADD;
-    margin: 0px 3px 3px 0px;
-    padding: 0 0px 0px 0px;
+    margin: 0 3px 3px 0;
     float: left;
+    padding: 5px;
 }
 .main_block .element:hover{
     border: solid 1px #000;
-    margin: 0px 3px 3px 0px;
-    padding: 0;
-    float: left;
     background: #FFFAE7;
 }
 .main_block .pizzaImg{
     text-decoration: none;
 }
 .main_block .pizzaImg img{
-    margin: 5px 0px 0px 5px;
+    margin: 5px 0 0 5px;
     padding: 0;
     width: 140px;
     height: 130px;
@@ -48,31 +45,6 @@
 
 .main_block .price_value{
     text-align: right;
-}
-
-.btn-primary {
-    -webkit-box-shadow: inset 0px -1px 0px 0px #D06809;
-    -moz-box-shadow: inset 0px -1px 0px 0px #D06809;
-    box-shadow: inset 0px -1px 0px 0px #D06809;
-    background: #f6912b;
-    background: -moz-linear-gradient(top, #f49020 0%, #f78200 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f49020), color-stop(100%, #f78200));
-    background: -webkit-linear-gradient(top, #f49020 0%, #f78200 100%);
-    background: -o-linear-gradient(top, #f49020 0%, #f78200 100%);
-    background: -ms-linear-gradient(top, #f49020 0%, #f78200 100%);
-    background: linear-gradient(to bottom, #f49020 0%, #f78200 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f49020', endColorstr='#f78200',GradientType=0 );
-}
-
-.btn-primary:hover {
-    background: #f79e43;
-    background: -moz-linear-gradient(top, #f79e43 0%, #f48b3e 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f79e43), color-stop(100%, #f48b3e));
-    background: -webkit-linear-gradient(top, #f79e43 0%, #f48b3e 100%);
-    background: -o-linear-gradient(top, #f79e43 0%, #f48b3e 100%);
-    background: -ms-linear-gradient(top, #f79e43 0%, #f48b3e 100%);
-    background: linear-gradient(to bottom, #f79e43 0%, #f48b3e 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f79e43', endColorstr='#f48b3e',GradientType=0 );
 }
 
 .pizza_line{

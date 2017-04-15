@@ -9,12 +9,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <spring:url value="/resources/css/components.css" var="componentsCss"/>
     <spring:url value="/resources/css/basket.css" var="basketCss"/>
     <spring:url value="/resources/css/startPageBreadcrumb.css" var="startPageBreadcrumbCss"/>
     <spring:url value="/resources/js/jquery-3.2.0.js" var="jqueryJs"/>
     <spring:url value="/resources/js/util.js" var="utilJs"/>
     <spring:url value="/resources/js/basket.js" var="basketJs"/>
     <title>Пиццы</title>
+    <link href="${componentsCss}" rel="stylesheet"/>
     <link href="${basketCss}" rel="stylesheet"/>
     <link href="${startPageBreadcrumbCss}" rel="stylesheet"/>
     <script type="text/javascript" src="${jqueryJs}"></script>
@@ -33,7 +35,7 @@
     <div style="margin: 10px 0;">
         Итого: <span id="resultPrice"></span> ₽
     </div>
-    <button onclick="goToPay()">Оплатить</button>
+    <button class="btn-primary" onclick="goToPay()">Оплатить</button>
 </div>
 </body>
 </html>

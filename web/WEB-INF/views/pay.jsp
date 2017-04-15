@@ -9,12 +9,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <spring:url value="/resources/css/components.css" var="componentsCss"/>
     <spring:url value="/resources/css/pay.css" var="payCss"/>
     <spring:url value="/resources/css/startPageBreadcrumb.css" var="startPageBreadcrumbCss"/>
     <spring:url value="/resources/js/jquery-3.2.0.js" var="jqueryJs"/>
     <spring:url value="/resources/js/util.js" var="utilJs"/>
     <spring:url value="/resources/js/pay.js" var="payJs"/>
     <title>Пиццы</title>
+    <link href="${componentsCss}" rel="stylesheet"/>
     <link href="${payCss}" rel="stylesheet"/>
     <link href="${startPageBreadcrumbCss}" rel="stylesheet"/>
     <script type="text/javascript" src="${jqueryJs}"></script>
@@ -28,7 +30,7 @@
         <span class="breadcrumb-item">Ваша корзина</span>
         <span class="breadcrumb-item breadcrumb-item_current">Оплата</span>
     </div>
-    <button class="pay" onclick="pay()">Оплатить</button>
+    <button class="pay btn-primary" onclick="pay()">Оплатить</button>
 </div>
 </body>
 </html>
