@@ -23,7 +23,7 @@
     <script type="text/javascript" src="${utilJs}"></script>
     <script type="text/javascript" src="${payJs}"></script>
 </head>
-<body onload="init();">
+<body>
 <div class="center">
     <div class="head_block">
         <span class="breadcrumb-item">Выбери пиццу</span>

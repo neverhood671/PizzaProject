@@ -13,12 +13,6 @@
     <spring:url value="/resources/css/components.css" var="componentsCss"/>
     <spring:url value="/resources/css/pizzaMaker.css" var="mainCss"/>
     <spring:url value="/resources/css/loadingBox.css" var="loadingBoxCss"/>
-    <spring:url value="/resources/Pizza_sea.png" var="seaImg"/>
-    <spring:url value="/resources/Pizza_red_sea.png" var="redSeaImg"/>
-    <spring:url value="/resources/Pizza_margarita.png" var="margaritaImg"/>
-    <spring:url value="/resources/Pizza_mushrooms.png" var="mashroomsImg"/>
-    <spring:url value="/resources/Pizza_pepperoni.png" var="pepImg"/>
-    <spring:url value="/resources/Pizza_pepperoni_mushrooms.png" var="pepMashImg"/>
     <spring:url value="/resources/js/jquery-3.2.0.js" var="jqueryJs"/>
     <spring:url value="/resources/js/util.js" var="utilJs"/>
     <spring:url value="/resources/js/pizzaMaker.js" var="pizzaMakerJs"/>

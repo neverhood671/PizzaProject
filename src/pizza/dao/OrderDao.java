@@ -31,7 +31,7 @@ public class OrderDao extends Dao {
             "ORDERSTATUS = :readyStatus " +
             "ORDER BY CREATIONDATE";
     private static final String FINISH_ORDERS_SQL = "UPDATE \"ORDER\" o SET o.ORDERSTATUS = :orderStatus " +
-            "WHERE NOT EXISTS(SELECT p.ID FROM PIZZA p WHERE p.ORDERID = o.ID AND p.PIZZASTATUS = :pizzaProgressStatus)";
+            "WHERE NOT EXISTS(SELECT p.ID FROM PIZZA p WHERE p.ORDERID = o.ID AND p.PIZZASTATUS <> :pizzaReadyStatus)";
 
     @Autowired
     private OrderRowMapper orderRowMapper;
@@ -60,7 +60,7 @@ public class OrderDao extends Dao {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("pizzaId", convertUUIDToOracleID(UUID.randomUUID()))
                 .addValue("orderStatus", READY_STATUS)
-                .addValue("pizzaProgressStatus", PizzaDao.IN_PROGRESS_STATUS);
+                .addValue("pizzaReadyStatus", PizzaDao.READY_STATUS);
         getNamedParameterJdbcTemplate().update(FINISH_ORDERS_SQL, params);
     }
 }

@@ -9,7 +9,8 @@ function pay() {
 function payProcess(request) {
     try {
         var result = eval("(" + request.responseText + ")");
-        if (result.status == "SUCCESS") {
+        if (result.status == "SUCCESS" && result.orderId != null) {
+            alert("Ваш заказ номер: " + result.orderId);
             location.href = '/startPage';
         } else {
             alert("Ошибка соединения с сервером!");

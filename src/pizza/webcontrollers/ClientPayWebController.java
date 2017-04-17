@@ -60,6 +60,7 @@ public class ClientPayWebController {
 
                 JsonObject status = new JsonObject();
                 status.addProperty("status", "SUCCESS");
+                status.addProperty("orderId", newOrder.getId().toString());
                 return status.toString();
             }
         } catch (Exception ignored) {
